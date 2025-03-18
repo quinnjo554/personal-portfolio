@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Code, Github, Linkedin, Mail, Phone, MapPin, Calendar, ChevronRight, ExternalLink } from 'lucide-react';
 import './App.css'
 
@@ -37,13 +37,16 @@ function App() {
     );
   }
 
-  const handleSectionClick = (section: any) => {
+  const handleSectionClick = (section: string) => {
     setActiveSection(section);
-    document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById(section);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <div className="min-h-screen w-screen h-screen bg-gray-900 text-gray-100 font-mono">
+    <div className="min-h-screen bg-gray-900 text-gray-100 font-mono">
       {/* Particle background effect */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {Array.from({ length: 50 }).map((_, i) => (
@@ -61,6 +64,7 @@ function App() {
         ))}
       </div>
 
+      {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 bg-gray-900 bg-opacity-90 border-b border-blue-500 z-50 backdrop-blur-sm">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-between items-center py-4">
@@ -85,11 +89,13 @@ function App() {
         </div>
       </nav>
 
+      {/* Main Content */}
       <div className="pt-24 pb-12">
+        {/* Hero Section */}
         <section id="home" className="min-h-screen flex flex-col justify-center max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6 animate-fadeIn">
-              <div className="inline-block px-3 py-1 bg-blue-500 bg-opacity-20 text-white rounded-full text-sm font-semibold mb-2">
+              <div className="inline-block px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-500 rounded-full text-sm font-semibold mb-2">
                 Software Engineer
               </div>
               <h1 className="text-5xl font-bold">
@@ -139,7 +145,7 @@ const currentFocus = "Building scalable microservices";`}
         {/* About Section */}
         <section id="about" className="py-20 max-w-6xl mx-auto px-4">
           <div className="space-y-4 mb-12 text-center">
-            <h2 className="text-3xl font-bold text-blue-500">About Me</h2>
+            <h2 className="text-3xl font-bold">About Me</h2>
             <div className="w-24 h-1 bg-blue-500 mx-auto"></div>
           </div>
           <div className="grid md:grid-cols-2 gap-12">
@@ -193,7 +199,7 @@ const currentFocus = "Building scalable microservices";`}
         <section id="experience" className="py-20 bg-gray-800 bg-opacity-50">
           <div className="max-w-6xl mx-auto px-4">
             <div className="space-y-4 mb-12 text-center">
-              <h2 className="text-3xl font-bold text-blue-500">Work Experience</h2>
+              <h2 className="text-3xl font-bold">Work Experience</h2>
               <div className="w-24 h-1 bg-blue-500 mx-auto"></div>
             </div>
             <div className="space-y-12">
@@ -259,7 +265,7 @@ const currentFocus = "Building scalable microservices";`}
         {/* Projects Section */}
         <section id="projects" className="py-20 max-w-6xl mx-auto px-4">
           <div className="space-y-4 mb-12 text-center">
-            <h2 className="text-3xl font-bold text-blue-500">Personal Projects</h2>
+            <h2 className="text-3xl font-bold">Personal Projects</h2>
             <div className="w-24 h-1 bg-blue-500 mx-auto"></div>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
@@ -348,7 +354,7 @@ const currentFocus = "Building scalable microservices";`}
         <section id="skills" className="py-20 bg-gray-800 bg-opacity-50">
           <div className="max-w-6xl mx-auto px-4">
             <div className="space-y-4 mb-12 text-center">
-              <h2 className="text-3xl font-bold text-blue-500">Technical Skills</h2>
+              <h2 className="text-3xl font-bold">Technical Skills</h2>
               <div className="w-24 h-1 bg-blue-500 mx-auto"></div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -480,11 +486,7 @@ const currentFocus = "Building scalable microservices";`}
         </section>
       </div>
 
-
-
-
       {/* Footer */}
-
       <footer className="bg-gray-900 border-t border-gray-800 py-8">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <div className="flex justify-center space-x-6 mb-6">
@@ -508,7 +510,8 @@ const currentFocus = "Building scalable microservices";`}
       </footer>
 
       {/* Custom CSS for animations */}
-      <style jsx global>{`
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes float {
           0% { transform: translateY(0px); opacity: 0.2; }
           50% { transform: translateY(-20px); opacity: 0.1; }
@@ -532,7 +535,7 @@ const currentFocus = "Building scalable microservices";`}
         .animate-blink {
           animation: blink 1s infinite;
         }
-      `}</style>
+      `}} />
     </div>
   );
 }
